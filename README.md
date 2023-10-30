@@ -6,14 +6,14 @@ Rapid WhatsApp is a React-based project that simplifies the process of starting 
 
 You can check out the live demo of Rapid WhatsApp [here](https://github.com/pankajkanani/whatsapp-link).
 
-[![image]([https://user-images.githubusercontent.com/74998585/232938597-003793ed-4a40-4b8e-a939-39b2e37c2c36.png](https://raw.githubusercontent.com/pankajkanani/whatsapp-link/main/src/wp-link.png))
+[![image]([https://raw.githubusercontent.com/pankajkanani/whatsapp-link/main/src/wp-link.png])
 ](https://github.com/pankajkanani/whatsapp-link/)
 
 ## Getting Started
 
 To get started with Rapid WhatsApp, follow these steps:
 
-1. Clone this repository using `git clone https://github.com/Vishesh-Pandey/rapid-whatsapp.git`
+1. Clone this repository using `git clone https://github.com/pankajkanani/whatsapp-link`
 2. Install dependencies using `npm install`
 3. Run the app using `npm start`
 
