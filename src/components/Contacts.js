@@ -4,7 +4,7 @@ import { saveHistory } from "../utils/contactUtils";
 
 const Contacts = ({ yourContacts, setYourContacts, setContactHistory }) => {
   const deleteContact = (event) => {
-    let contactName = event.currentTarget.value;
+    const contactName = event.currentTarget.value;
     swal({
       title: "Are you sure?",
       text: "Are you sure that you want to delete this contact?",
@@ -13,19 +13,17 @@ const Contacts = ({ yourContacts, setYourContacts, setContactHistory }) => {
       buttons: ["No", "Yes"],
     }).then((willDelete) => {
       if (willDelete) {
-        let allContacts = localStorage.getItem("savedContacts");
-        allContacts = JSON.parse(allContacts);
+        const allContacts = JSON.parse(
+          localStorage.getItem("savedContacts") || "[]"
+        );
 
-        let remainingContacts = allContacts.filter((contact) => {
+        const remainingContacts = allContacts.filter((contact) => {
           return contact.name !== contactName;
         });
 
-        localStorage.setItem(
-          "savedContacts",
-          JSON.stringify(remainingContacts)
-        );
+        localStorage.setItem("savedContacts", JSON.stringify(remainingContacts));
 
-        setYourContacts(JSON.parse(localStorage.getItem("savedContacts")));
+        setYourContacts(JSON.parse(localStorage.getItem("savedContacts") || "[]"));
 
         swal({
           title: "Deleted Successfully!",
@@ -66,10 +64,10 @@ const Contacts = ({ yourContacts, setYourContacts, setContactHistory }) => {
   }
 
   function handleCopyToClipboard(value) {
-    navigator?.clipboard
+    navigator.clipboard
       .writeText(value)
-      .then((val) => swal("Copied!", value, "success"))
-      .catch((err) => swal("Oops!", "something went wrong", "error"));
+      .then(() => swal("Copied!", value, "success"))
+      .catch(() => swal("Oops!", "something went wrong", "error"));
   }
 
   return (
@@ -82,46 +80,49 @@ const Contacts = ({ yourContacts, setYourContacts, setContactHistory }) => {
       </div>
 
       <div>
-        {yourContacts
+        {[...yourContacts]
           .sort((a, b) => a.name.localeCompare(b.name))
-          .map((element, index) => {
+          .map((element) => {
+            const phone = element.number || "";
+            const cc = phone.length > 10 ? phone.slice(0, phone.length - 10) : "";
+            const rest = phone.slice(-10);
+            const displayNumber = cc ? `+${cc}-${rest}` : rest;
+
             return (
-              <div key={index} className="card text-bg-white my-2 w-100 p-2">
+              <div key={element.number || element.name} className="card text-bg-white my-2 w-100 p-2">
                 <div className="card-header d-flex justify-content-between fw-bold">
                   <p>{element.name}</p>
                   <button
                     onClick={deleteContact}
                     value={element.name}
                     className="btn btn-sm btn-outline-danger m-1"
+                    aria-label={`Delete ${element.name}`}
                   >
-                    <i className="bi bi-trash3" />
+                    <i className="bi bi-trash3" aria-hidden="true" />
                   </button>
                 </div>
                 <div className="card-body">
                   <div className="d-flex justify-content-between align-items-center">
-                    <h5 className="card-title">
-                      {element.number.slice(0, 2)}-{element.number.slice(2, 12)}
-                    </h5>
+                    <h5 className="card-title">{displayNumber}</h5>
                     <button
-                      onClick={() => handleCopyToClipboard(element?.number)}
+                      onClick={() => handleCopyToClipboard(element.number)}
                       value={element.name}
                       className="btn btn-sm btn-outline-secondary m-1"
+                      aria-label={`Copy ${element.name} number`}
                     >
-                      <i className="bi bi-clipboard" />
+                      <i className="bi bi-clipboard" aria-hidden="true" />
                     </button>
                   </div>
                 </div>
                 <a
-                  onClick={(e) => {
+                  onClick={() => {
                     saveHistory(element.number, now());
-                    setContactHistory(
-                      JSON.parse(localStorage.getItem("history"))
-                    );
+                    setContactHistory(JSON.parse(localStorage.getItem("history") || "[]"));
                   }}
                   value={element}
                   target="_blank"
-                  rel="noreferrer"
-                  href={`http://wa.me/${element.number}`}
+                  rel="noopener noreferrer"
+                  href={`https://wa.me/${element.number}`}
                   className="btn btn-outline-success"
                 >
                   Chat

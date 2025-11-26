@@ -64,17 +64,17 @@ const History = ({ contactHistory, setContactHistory }) => {
       </div>
 
       <div>
-        {limitedContactHistory.map((element, index) => {
+        {limitedContactHistory.map((element) => {
           return (
-            <div key={index} className="btn btn-outline-dark w-100 my-2">
+            <div key={element.timedate} className="btn btn-outline-dark w-100 my-2">
               <div>
                 <a
                   target="_blank"
-                  rel="noreferrer"
-                  href={`http://wa.me/${element.number}`}
+                  rel="noopener noreferrer"
+                  href={`https://wa.me/${element.number}`}
                   className="btn btn-outline-success btn-sm border-0 w-75"
                 >
-                  <i className="bi bi-whatsapp mx-3" />
+                  <i className="bi bi-whatsapp mx-3" aria-hidden="true" />
                   <span>{element.number}</span>
                 </a>
 
@@ -85,8 +85,9 @@ const History = ({ contactHistory, setContactHistory }) => {
                   }}
                   value={element}
                   className="btn btn-outline-danger btn-sm border-0 float-end w-25"
+                  aria-label={`Delete history for ${element.number}`}
                 >
-                  <i className="bi bi-trash3" />
+                  <i className="bi bi-trash3" aria-hidden="true" />
                 </button>
               </div>
               <time style={{ fontSize: "12px" }}>{element.timedate}</time>

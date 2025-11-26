@@ -1,0 +1,63 @@
+:root{
+  --bg: #ffffff;
+  --muted: #6c757d;
+  --success: #198754;
+  --accent: #0d6efd;
+  --card-shadow: 0 6px 18px rgba(16,24,40,0.06);
+  --max-width: 1100px;
+}
+
+/* Layout container override to keep content readable on large screens */
+.container{
+  max-width: var(--max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* General card polish */
+.card{
+  border: 1px solid rgba(0,0,0,0.06);
+  box-shadow: var(--card-shadow);
+  border-radius: .6rem;
+}
+
+.card .card-header, .card .card-body{
+  background: transparent;
+}
+
+/* Form responsiveness */
+.form-control{
+  border-radius: .4rem;
+  padding: .5rem .75rem;
+}
+
+/* Make primary actions full-width on small viewports */
+@media (max-width: 576px){
+  .btn.w-100 { width: 100%; }
+  .col-sm-4, .col-sm-8, .col-md-6, .col-lg-6 { flex: 0 0 100%; max-width:100%; }
+  .btn-group, .d-flex { flex-wrap: wrap !important; }
+  .btn-group .btn, .btn-group .form-select { width: 100%; margin-bottom: .5rem; }
+}
+
+/* Templates page specifics */
+.templates-grid .card{ display:flex; flex-direction:column; }
+@media (min-width: 768px){
+  .templates-grid .card{ flex-direction:row; align-items:flex-start; }
+  .templates-grid .card > .col-md-9 { padding-right: 1rem; }
+  .templates-grid .card > .col-md-3 { display:flex; justify-content:flex-end; align-items:flex-start; }
+}
+
+/* Message textarea stretch */
+textarea.form-control{ min-height: 84px; resize:vertical; }
+
+/* Small helpers */
+.muted { color: var(--muted); }
+.brand { color: var(--accent); }
+
+/* Improve navbar spacing */
+.navbar-brand { font-weight:600; }
+
+/* Accessible focus state */
+:focus{ outline: 3px solid rgba(13,110,253,0.15); outline-offset: 2px; }

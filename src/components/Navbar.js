@@ -11,7 +11,7 @@ const Navbar = () => {
           <a
             className="btn btn-outline-light"
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             href="https://github.com/pankajkanani/whatsapp-link"
           >
             Code
